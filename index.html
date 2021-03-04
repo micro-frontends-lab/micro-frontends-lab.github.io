@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>微前端简介与示例</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<style>
+			mark{
+				background: #000;
+				color: #fff;
+				padding: 0 0.3em;
+			}
+			.reveal p{
+				margin: 10px 0;
+				font-size: 80%;
+			}
+			.ta-left{
+				text-align: left;
+			}
+			.h-100{
+				height: 100%;
+			}
+			.h-90{
+				height: 90%;
+			}
+			.m-none{
+				margin: 0;
+			}
+			.p-none{
+				padding:0;
+			}
+			.d-block{
+				display:block;
+			}
+			.reveal .flex-list{
+				display: flex;
+				justify-content: center;
+				list-style: none;
+			}
+			.reveal .flex-list > * {
+				margin: 10px;
+			}
+		</style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+
+
+				<section>
+					<h3>微前端简介与示例</h3>
+					<p>2020/02/28</p>
+				</section>
+
+
+
+				<section>
+					<h3>内容概要</h3>
+					<ul>
+						<li><p>微前端的思想与发展现状</p></li>
+						<li><p>实现示例</p></li>
+						<li><p>可预见的变化</p></li>
+					</ul>
+				</section>
+
+
+
+				<section>
+
+					<section>
+						<h3>微前端的思想与发展现状</h3>
+					</section>
+
+					<section>
+						<h4>什么是微前端？</h4>
+					</section>
+
+					<section>
+						<p class="ta-left">
+							The idea behind Micro Frontends is to think about a website or web app as <mark>a composition of features</mark> which are owned by <mark>independent teams</mark>. Each team has <mark>a distinct area of business or mission</mark> it cares about and specialises in. A team is <mark>cross functional</mark> and develops its features <mark>end-to-end</mark>, from database to user interface.
+					  </p>
+					  <p class="ta-left">
+					  	______ <a href="https://micro-frontends.org/" target="_blank">micro-frontends.org</a>
+					  </p>
+					</section>
+
+					<section class="h-90">
+						<img src="./img/monolith_to_micro.png" alt="monolith to micro">
+					</section>
+
+					<section>
+						<h4>微前端的核心思想</h4>
+					</section>
+
+					<section>
+						<ul>
+							<li>
+								<p>Be Technology Agnostic</p>
+								<p><small>Each team should be able to choose and upgrade their stack without having to coordinate with other teams. Custom Elements are a great way to hide implementation details while providing a neutral interface to others.</small></p>
+							</li>
+							<li>
+								<p>Isolate Team Code</p>
+								<p><small>Don’t share a runtime, even if all teams use the same framework. Build independent apps that are self contained. Don’t rely on shared state or global variables.</small></p>
+							</li>
+							<li>
+								<p>Establish Team Prefixes</p>
+								<p><small>Agree on naming conventions where isolation is not possible yet. Namespace CSS, Events, Local Storage and Cookies to avoid collisions and clarify ownership.</small></p>
+							</li>
+							<li>
+								<p>Favor Native Browser Features over Custom APIs</p>
+								<p><small>Use Browser Events for communication instead of building a global PubSub system. If you really have to build a cross team API, try keeping it as simple as possible.</small></p>
+							</li>
+							<li>
+								<p>Build a Resilient Site</p>
+								<p><small>Your feature should be useful, even if JavaScript failed or hasn’t executed yet. Use Universal Rendering and Progressive Enhancement to improve perceived performance.</small></p>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>微前端的优势</h4>
+					</section>
+
+					<section>
+						<ul>
+							<li><p>技术栈的独立</p></li>
+							<li><p>团队的纵向切分</p></li>
+							<li><p>服务的分布式部署</p></li>
+							<li><p>产品的增量升级</p></li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>微前端的缺点</h4>
+					</section>
+
+					<section>
+						<ul>
+							<li><p>整体架构复杂度攀升</p></li>
+							<li><p>社区生态不成熟</p></li>
+							<li><p>多技术栈下网络及性能压力上升</p></li>
+							<li><p>意外的运行时冲突</p></li>
+							<li><p>使用体验不连贯</p></li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>理想与现实的平衡</h4>
+					</section>
+
+					<section class="h-90">
+						<img src="./img/spectrum.jpeg" alt="spectrum">
+					</section>
+
+					<section>
+						<h4>微前端的适用场景</h4>
+					</section>
+
+					<section>
+						<p class="ta-left">
+							微前端对团队架构的解耦价值远大于其自身的技术价值。
+						</p>
+						<p class="ta-left">
+						  对于小型、高度协作的团队和相对简单的产品来说，微前端的优势相比代价来说就很不明显了，技术复杂度的攀升会导致迭代效率的直线下降。
+            </p>
+            <p class="ta-left">
+						  而对于大型、功能众多的产品和许多较独立的团队共同开发的情况来说，微前端的好处就比较突出，可以较好地实现从开发到运维的团队纵向切分，
+						  便于不同团队间业务和技术的分离。
+            </p>
+					</section>
+
+					<section>
+						<h4>微前端的主要实现方式</h4>
+					</section>
+
+					<section>
+						<ul>
+							<li>
+								<p>服务端模版拼装</p>
+								<p><small>子应用提供模版片段，主应用拼装。</small></p>
+							</li>
+							<li>
+								<p>构建时集成</p>
+								<p><small>子应用按照npm package发布，主应用构建时安装集成。</small></p>
+							</li>
+							<li>
+								<p>Iframe运行时集成</p>
+								<p><small>子应用提供入口，主应用加载嵌入。</small></p>
+							</li>
+							<li>
+								<p>Javascript/Web组件运行时集成</p>
+								<p><small>子应用提供入口，主应用加载调度。</small></p>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>微前端架构建设要点</h4>
+					</section>
+
+					<section>
+						<ul>
+							<li><p>路由系统的融合</p></li>
+						  <li><p>运行时的隔离</p></li>
+					 	  <li><p>应用间的通信</p></li>
+						  <li><p>共享依赖的提取</p></li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>部署架构</h4>
+					</section>
+
+					<section class="h-90">
+						<img src="./img/architecture_dep.png" alt="dep architecture">
+					</section>
+
+				</section>
+
+
+
+				<section>
+
+					<section>
+						<h3>实现示例</h3>
+					</section>
+
+					<section>
+						<p class="ta-left"><small>
+							访问<a href="https://micro-frontends-lab.github.io/QiankunMainApp" target="_blank">
+								https://micro-frontends-lab.github.io/QiankunMainApp
+							</a>
+							可预览一个基于真实项目抽取出来的微前端应用。该应用是一个单页应用，
+							通过在运行时调度部署在不同静态服务下的子应用进行组合，实现子应用的集成。
+						</small></p>
+						<p class="ta-left"><small>
+							访问<a href="https://github.com/micro-frontends-lab" target="_blank">
+								https://github.com/micro-frontends-lab
+							</a>可详细了解该应用实现过程中的相关类库和源码。
+						</small></p>
+
+						<img src="./img/sample.png" alt="sample preview">
+
+					</section>
+
+				</section>
+
+
+
+				<section>
+
+					<section>
+						<h3>可预见的变化</h3>
+					</section>
+
+					<section>
+						<ul>
+							<li><p>qiankun 2.0的升级</p></li>
+							<li><p>Web Components在微前端生态的崛起</p></li>
+							<li><p>微前端架构下依赖管理方式的演变</p></li>
+							<li><p>服务端渲染对微前端架构的影响</p></li>
+						</ul>
+					</section>
+
+				</section>
+
+
+
+				<section>
+					<h1>谢谢！</h1>
+				</section>
+
+
+
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

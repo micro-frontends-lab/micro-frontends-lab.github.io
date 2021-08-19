@@ -8,7 +8,8 @@
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+		<!-- <link rel="stylesheet" href="css/theme/white.css"> -->
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/monokai.css">
@@ -26,6 +27,9 @@
 			.ta-left{
 				text-align: left;
 			}
+			.fs-italic{
+				font-style: italic;
+			}
 			.h-100{
 				height: 100%;
 			}
@@ -41,6 +45,9 @@
 			.d-block{
 				display:block;
 			}
+			.reveal {
+				color: #e0e0e0;
+			}
 			.reveal .flex-list{
 				display: flex;
 				justify-content: center;
@@ -48,6 +55,9 @@
 			}
 			.reveal .flex-list > * {
 				margin: 10px;
+			}
+			img {
+				background: #fff!important;
 			}
 		</style>
 
@@ -67,8 +77,8 @@
 
 
 				<section>
-					<h3>微前端简介与示例</h3>
-					<p>2020/02/28</p>
+					<h3>微前端架构在Web工程中的应用</h3>
+					<p><small>Updated at 2021/08/19 | Created at 2020/02/28</small></p>
 				</section>
 
 
@@ -76,8 +86,10 @@
 				<section>
 					<h3>内容概要</h3>
 					<ul>
-						<li><p>微前端的思想与发展现状</p></li>
-						<li><p>实现示例</p></li>
+						<li><p>微前端的思想与特点</p></li>
+						<li><p>微前端的主要实现方式</p></li>
+						<li><p>微前端架构建设要点</p></li>
+						<li><p>运行时集成示例</p></li>
 						<li><p>可预见的变化</p></li>
 					</ul>
 				</section>
@@ -87,7 +99,7 @@
 				<section>
 
 					<section>
-						<h3>微前端的思想与发展现状</h3>
+						<h3>微前端的思想与特点</h3>
 					</section>
 
 					<section>
@@ -99,7 +111,7 @@
 							The idea behind Micro Frontends is to think about a website or web app as <mark>a composition of features</mark> which are owned by <mark>independent teams</mark>. Each team has <mark>a distinct area of business or mission</mark> it cares about and specialises in. A team is <mark>cross functional</mark> and develops its features <mark>end-to-end</mark>, from database to user interface.
 					  </p>
 					  <p class="ta-left">
-					  	______ <a href="https://micro-frontends.org/" target="_blank">micro-frontends.org</a>
+					  	______ <a href="https://micro-frontends.org/" target="_blank" class="fs-italic">micro-frontends.org</a>
 					  </p>
 					</section>
 
@@ -176,45 +188,72 @@
 					</section>
 
 					<section>
-						<p class="ta-left">
-							微前端对团队架构的解耦价值远大于其自身的技术价值。
-						</p>
-						<p class="ta-left">
-						  对于小型、高度协作的团队和相对简单的产品来说，微前端的优势相比代价来说就很不明显了，技术复杂度的攀升会导致迭代效率的直线下降。
-            </p>
-            <p class="ta-left">
-						  而对于大型、功能众多的产品和许多较独立的团队共同开发的情况来说，微前端的好处就比较突出，可以较好地实现从开发到运维的团队纵向切分，
-						  便于不同团队间业务和技术的分离。
-            </p>
-					</section>
-
-					<section>
-						<h4>微前端的主要实现方式</h4>
-					</section>
-
-					<section>
 						<ul>
-							<li>
-								<p>服务端模版拼装</p>
-								<p><small>子应用提供模版片段，主应用拼装。</small></p>
-							</li>
-							<li>
-								<p>构建时集成</p>
-								<p><small>子应用按照npm package发布，主应用构建时安装集成。</small></p>
-							</li>
-							<li>
-								<p>Iframe运行时集成</p>
-								<p><small>子应用提供入口，主应用加载嵌入。</small></p>
-							</li>
-							<li>
-								<p>Javascript/Web组件运行时集成</p>
-								<p><small>子应用提供入口，主应用加载调度。</small></p>
-							</li>
+							<li><p class="ta-left">
+								微前端对团队架构的解耦价值远大于其自身的技术价值。
+							</p></li>
+							<li><p class="ta-left">
+							  对于小型、高度协作的团队和相对简单的产品来说，技术复杂度的攀升会导致迭代效率的直线下降。
+	            </p></li>
+	            <li><p class="ta-left">
+							  而对于大型、功能众多的产品和许多较独立的团队共同开发的情况来说，可以较好地实现从开发到运维的团队纵向切分，
+							  便于不同团队间业务和技术的分离。
+	            </p></li>
 						</ul>
 					</section>
 
+				</section>
+
+
+				<section>
+
 					<section>
-						<h4>微前端架构建设要点</h4>
+						<h3>微前端的主要实现方式</h3>
+					</section>
+
+					<section>
+						<h4>服务端模版拼装</h4>
+						<p><small>
+							子应用提供模版片段，主应用拼装。
+							<br>
+							<span class="fs-italic">Services -> <a href="https://www.mosaic9.org/" target="_blank">Mosaic</a>, ...</span>
+						</small></p>
+						<img src="./img/mosaic.png" alt="bit" style="width: 40%">
+					</section>
+
+					<section>
+						<h4>构建时集成</h4>
+						<p><small>
+							子应用按照npm package发布组件/应用，主应用构建时安装集成。
+							<br>
+							<span class="fs-italic">Platforms -> <a href="https://bit.dev/" target="_blank">Bit</a>, ...</span>
+						</small></p>
+						<img src="./img/bit.svg" alt="bit">
+					</section>
+
+
+					<section>
+						<h4>Javascript/Web组件运行时集成</h4>
+						<p><small>
+							子应用提供入口，主应用加载调度。
+							<br>
+							<span class="fs-italic">Frameworks -> <a href="https://single-spa.js.org/" target="_blank">Single SPA</a>、
+							<a href="https://qiankun.umijs.org/" target="_blank">Qiankun</a>, ...</span>
+						</small></p>
+						<img src="./img/architecture_dep.png" alt="dep architecture">
+					</section>
+
+					<section>
+						<h4>Iframe运行时集成</h4>
+						<p><small>子应用提供入口，主应用加载嵌入。</small></p>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h3>微前端架构建设要点</h3>
 					</section>
 
 					<section>
@@ -226,22 +265,12 @@
 						</ul>
 					</section>
 
-					<section>
-						<h4>部署架构</h4>
-					</section>
-
-					<section class="h-90">
-						<img src="./img/architecture_dep.png" alt="dep architecture">
-					</section>
-
 				</section>
-
-
 
 				<section>
 
 					<section>
-						<h3>实现示例</h3>
+						<h3>运行时集成示例</h3>
 					</section>
 
 					<section>
@@ -274,7 +303,6 @@
 
 					<section>
 						<ul>
-							<li><p>qiankun 2.0的升级</p></li>
 							<li><p>Web Components在微前端生态的崛起</p></li>
 							<li><p>微前端架构下依赖管理方式的演变</p></li>
 							<li><p>服务端渲染对微前端架构的影响</p></li>
